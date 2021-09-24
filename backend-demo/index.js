@@ -1,5 +1,6 @@
 // setup the package variables
 require("dotenv").config();
+const cors = require("cors");
 const express = require("express");
 
 // initialize the app

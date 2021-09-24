@@ -1,18 +1,22 @@
 import { useState } from "react";
+import axios from "axios";
 import "./App.css";
 
 const App = () => {
-  const [alumnos, setAlumnos] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [inputValue, setInputValue] = useState(null);
 
-  const CallBackend = () => {
-    setAlumnos([
-      { alumno: "willy", id: 13 },
-      { alumno: "alan", id: 12 },
-      { alumno: "santiago", id: 26 },
-      { alumno: "gabriel", id: 0 },
-      { alumno: "pablo", id: 88 },
-      { alumno: "raul", id: 56 },
-    ]);
+  const handleInput = (e) => {
+    setInputValue(e.target.value === "" ? null : e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .get(`http://localhost:8080/getStudents/${inputValue}`)
+      .then(({ data }) => {
+        setStudents(data);
+      });
   };
 
   return (
@@ -21,16 +25,25 @@ const App = () => {
         <h1>Frontend demo</h1>
       </header>
       <body>
-        <button onClick={CallBackend} className="btn">
-          Obtener datos
-        </button>
+        <div>
+          <form onSubmit={handleSubmit}>
+            <input
+              name="studentId"
+              type="number"
+              onChange={handleInput}
+              min="0"
+            />
+            <button className="btn">Obtener datos</button>
+          </form>
+        </div>
+
         <div className="content-of-chart">
           <span>Alumnos</span>
           <span>ID</span>
         </div>
         <div className="data-content">
-          {alumnos.map(({ alumno, id }) => (
-            <div className="student">
+          {students.map(({ alumno, id }) => (
+            <div className="student" key={id}>
               <span>{alumno}</span>
               <span>{id}</span>
             </div>
