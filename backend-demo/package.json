@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon ."
+  },
+  "author": "KremoWy",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}
